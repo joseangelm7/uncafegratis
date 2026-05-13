@@ -1,0 +1,21 @@
+name: Revision de HTML # Nombre del proceso
+
+# ¿Cuándo se activa? Cuando subimos código (push) a la rama principal
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  check-html:
+    name: Validar sintaxis HTML
+    runs-on: ubuntu-latest # Usamos un servidor Linux de GitHub
+
+    steps:
+      - name: Obtener mi codigo
+        uses: actions/checkout@v4
+
+      - name: Revisar HTML (Linter)
+        # Usamos una herramienta que ya existe para validar HTML
+        uses: htmlhint/htmlhint-action@v2
+        with:
+          rules: "tag-pair:true, spec-char-escape:true, id-unique:true"
