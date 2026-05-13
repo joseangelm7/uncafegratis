@@ -3,7 +3,7 @@ name: Revision de HTML # Nombre del proceso
 # ¿Cuándo se activa? Cuando subimos código (push) a la rama principal
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   check-html:
