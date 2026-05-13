@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Descargamos el código del alumno
+      # 1. Descargamos el código
       - name: Checkout del código
         uses: actions/checkout@v4
 
