@@ -1,26 +1,23 @@
 name: Validar sintaxis HTML
 
-# El proceso se dispara al hacer push a las ramas principales
 on:
   push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master" ] # Se adapta a cualquier nombre de rama principal
 
 jobs:
   check-html:
-    name: Validar sintaxis HTML
+    name: Verificación de sintaxis
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Descargar el código del repositorio a la máquina virtual
+      # 1. Descargamos el código del alumno
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      # Paso 2: Ejecutar el validador real (HTMLHint)
-      - name: Validar HTML con HTMLHint
-        # Esta es la dirección REAL de la herramienta en GitHub
-        uses: htmlhint/htmlhint-action@v2
-        with:
-          # Configuramos reglas básicas 
-          rules: "tag-pair:true, spec-char-escape:true, id-unique:true, src-not-empty:true"
+      # 2. Instalamos la herramienta directamente por terminal (más fiable)
+      - name: Instalar validador
+        run: npm install -g htmlhint
+
+      # 3. Ejecutamos la validación sobre todos los archivos .html
+      - name: Ejecutar validación
+        run: htmlhint "**/*.html"
