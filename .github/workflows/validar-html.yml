@@ -1,21 +1,22 @@
-name: Revision de HTML # Nombre del proceso
+name: Validar sintaxis HTML
 
-# ¿Cuándo se activa? Cuando subimos código (push) a la rama principal
 on:
   push:
-    branches: [ "master" ]
+    # IMPORTANTE: Asegúrate de que el nombre de tu rama sea 'main' o 'master'
+    branches: [ "main", "master" ]
 
 jobs:
   check-html:
     name: Validar sintaxis HTML
-    runs-on: ubuntu-latest # Usamos un servidor Linux de GitHub
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Obtener mi codigo
+      - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: Revisar HTML (Linter)
-        # Usamos una herramienta que ya existe para validar HTML
-        uses: htmlhint/htmlhint-action@v2
-        with:
-          rules: "tag-pair:true, spec-char-escape:true, id-unique:true"
+      - name: Validar HTML
+        
+        uses: path-to-file/html-validator-action@master
+        # O podemos usar una alternativa más estándar como:
+        # uses: htmlhint/htmlhint-action@v2
+        # Nota: Si sigue fallando, prueba con la versión @v2 específica
