@@ -1,8 +1,10 @@
 name: Validar sintaxis HTML
 
+# El proceso se dispara al hacer push a las ramas principales
 on:
   push:
-    # IMPORTANTE: Asegúrate de que el nombre de tu rama sea 'main' o 'master'
+    branches: [ "main", "master" ]
+  pull_request:
     branches: [ "main", "master" ]
 
 jobs:
@@ -11,12 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Paso 1: Descargar el código del repositorio a la máquina virtual
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: Validar HTML
-        
-        uses: path-to-file/html-validator-action@master
-        # O podemos usar una alternativa más estándar como:
-        # uses: htmlhint/htmlhint-action@v2
-        # Nota: Si sigue fallando, prueba con la versión @v2 específica
+      # Paso 2: Ejecutar el validador real (HTMLHint)
+      - name: Validar HTML con HTMLHint
+        # Esta es la dirección REAL de la herramienta en GitHub
+        uses: htmlhint/htmlhint-action@v2
+        with:
+          # Configuramos reglas básicas 
+          rules: "tag-pair:true, spec-char-escape:true, id-unique:true, src-not-empty:true"
